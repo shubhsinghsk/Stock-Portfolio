@@ -1,0 +1,87 @@
+{% extends "layout.html" %}
+
+
+{% block content %}
+<article class="media content-section">
+  <div class="media-body">
+    <div class="article-metadata">
+      <h2 class="article-title">{{stock_name}}</h2>
+    </div>
+    <h6 class="article-title">{{ stock.stock_symbol }}</h6>
+    <h6 class="article-title">This is the analysis of past 60 days</h6>
+    {% if stock.author == current_user %}
+      <div>
+        <button type="button" class="btn btn-danger btn-sm m-1" data-toggle="modal" data-target="#deleteModal">Remove from Watchlist
+        </button>
+      </div>
+      {% endif %}
+  </div>
+</article>
+<!-- Modal -->
+<div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel"
+  aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="deleteModalLabel">Delete Stock?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <form action="{{ url_for('delete_watch_stock', stock_id=stock.id) }}" method="POST">
+          <input class="btn btn-danger" type="submit" value="Delete">
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% block javascript %}
+<canvas id="stockChart" width="1200" height="600"></canvas>
+<script>
+  // Get the canvas element for modifying the data contents
+  var ctx = document.getElementById('stockChart').getContext('2d');
+
+  // Set the default font color for each chart
+  Chart.defaults.global.defaultFontColor = 'black';
+
+  // Create a new line chart
+  var myChart = new Chart(ctx, {
+    type: 'bar',
+    data: {
+      labels: [{% for item in labels %}
+         "{{item.strftime("%m/%d/%Y")}}",
+      {% endfor %}],
+  datasets: [{
+    label: 'Share Price ($)',
+    data:
+      [{% for item in values %}
+          {{ item }},
+  {% endfor %}],
+    backgroundColor: 'rgb(255, 205, 86)',
+      borderColor: 'black',
+        borderWidth: 1,
+        fill: false,
+        tension: 0.1
+    }]
+  },
+  options: {
+    legend: {
+      display: true,
+        position: 'bottom',
+          align: 'center'
+    },
+    scales: {
+      yAxes: [{
+        ticks: {
+          beginAtZero: true
+        },
+      }],
+    }
+  }
+});
+</script>
+{% endblock javascript %}
+
+{% endblock content %}

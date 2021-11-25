@@ -1,0 +1,33 @@
+{% extends "layout.html" %}
+
+
+
+{% block content %}
+<div class="content-section">
+    <fieldset class="form-group">
+        <legend class="border-bottom mb-4"><strong>Add Stock</strong> (Confirm the details)</legend>
+        <div  class="contents">
+            <h5 style="color: rgb(12, 12, 12)">Stock Symbol</h5>
+            <p style="color: rgb(100, 95, 95)">{{symbol}}</p>
+        </div>
+        <div class="contents">
+            <h5 style="color: rgb(12, 12, 12)">No. of Shares</h5>
+            <p style="color: rgb(100, 95, 95)">{{no_of_stocks}}</p>
+        </div>
+        <div class="contents">
+            <h5 style="color: rgb(12, 12, 12)">Current Price</h5>
+            <p style="color: rgb(100, 95, 95)">$ {{purchase_price}}</p>
+        </div>
+        <div class="contents">
+            <h5 style="color: rgb(12, 12, 12)">Total Stock Price</h5>
+            <p style="color: rgb(100, 95, 95)">$ {{purchase_price*no_of_stocks}}</p>
+        </div>
+        <div>
+            <a class="btn btn-success" href={{ url_for( 'my_investment' ) }}> Confirm,Add Stock </a>
+            <a class="btn btn-danger" href={{ url_for('sell_stock', stock_id=stock.id) }}> No,Delete</a>
+
+        </div>
+    </fieldset>
+
+</div>
+{% endblock content %}

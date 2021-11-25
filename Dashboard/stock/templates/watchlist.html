@@ -1,0 +1,27 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h1>Watchlist</h1>
+<a class="btn btn-success" href={{ url_for( 'add_stock_watch' ) }}> ADD Watch Stock</a>
+<hr>
+  <table class="table table-striped">
+    <tr>
+      <th>Stock Symbol</th>
+      <th>Company Name</th>
+      <th>Current Price</th>
+      <th>Day High</th>
+      <th>Day Low</th>
+      <th>Previous Day Close</th>
+    </tr>
+    {% for stock in stocks %}
+      <tr>
+        <td><a class="mr-2" href={{ url_for('watchlist_stock',stock_id=stock.id) }}>{{ stock.stock_symbol }}</a></td>
+        <td>{{stock.company_name}}</td>
+        <td>$ {{stock.current_price}}</td>
+        <td>$ {{stock.day_high}}</td>
+        <td>${{stock.day_low}}</td>
+        <td>$ {{stock.previous_close}}</td>
+      </tr>
+    {% endfor %}
+  </table>
+{% endblock content %}

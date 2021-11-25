@@ -1,0 +1,62 @@
+{% extends "layout.html" %}
+
+
+
+{% block content %}
+    <div class="content-section">
+        <form method="POST" action="">
+            {{ form.hidden_tag() }}
+            <fieldset class="form-group">
+                <legend class="border-bottom mb-4">Add Stock</legend>
+                <!-- <div class="input-group input-group-sm mb-2">
+                        {{ form.stock_symbol.label(class="form-control-label") }}
+                        {% if form.stock_symbol.errors %}
+                            {{ form.stock_symbol(class="form-control form-control-lg is-invalid") }}
+                            <div class="invalid-feedback">
+                                {% for error in form.stock_symbol.errors %}
+                                    <span>{{ error }}</span>
+                                {% endfor %}
+                            </div>
+                        {% else %}
+                            {{ form.stock_symbol(class="form-control form-control-lg") }}
+                        {% endif %}
+
+                      <div class="text-left",>
+                        <a href={{ url_for('get_price',symbol=form.stock_symbol) }} class="btn btn-primary">Get Price</a>
+                    </div>
+                  </div> -->
+                <div class="form-group">
+                  {{ form.stock_symbol.label(class="form-control-label") }}
+
+                  {% if form.stock_symbol.errors %}
+                      {{ form.stock_symbol(class="form-control form-control-lg is-invalid") }}
+                      <div class="invalid-feedback">
+                          {% for error in form.stock_symbol.errors %}
+                              <span>{{ error }}</span>
+                          {% endfor %}
+                      </div>
+                  {% else %}
+                      {{ form.stock_symbol(class="form-control form-control-lg") }}
+                  {% endif %}
+                </div>
+                <div class="form-group">
+                    {{ form.number_of_shares.label(class="form-control-label") }}
+
+                    {% if form.number_of_shares.errors %}
+                        {{ form.number_of_shares(class="form-control form-control-lg is-invalid") }}
+                        <div class="invalid-feedback">
+                            {% for error in form.number_of_shares.errors %}
+                                <span>{{ error }}</span>
+                            {% endfor %}
+                        </div>
+                    {% else %}
+                        {{ form.number_of_shares(class="form-control form-control-lg") }}
+                    {% endif %}
+                </div>
+            </fieldset>
+            <div class="form-group">
+                {{ form.submit(class="btn btn-outline-info") }}
+            </div>
+        </form>
+    </div>
+{% endblock content %}

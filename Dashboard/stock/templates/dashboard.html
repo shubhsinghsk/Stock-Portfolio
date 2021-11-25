@@ -1,0 +1,25 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<div class="text-center">
+  <h1>Portfolio <small> Welcome {{current_user.name}}</small></h1>
+  <a class="btn btn-success" href={{ url_for( 'get_price' ) }}> Buy Stock</a>
+  <hr>
+  <table class="table table-striped">
+    <tr>
+      <th>Stock Symbol</th>
+      <th>No. of Stockes</th>
+      <th>Purchase Price</th>
+      <th>Purchase Date</th>
+    </tr>
+    {% for stock in stocks %}
+      <tr>
+        <td><a class="mr-2" href={{ url_for('stockes',stock_id=stock.id) }}>{{ stock.stock_symbol }}</a></td>
+        <td>{{stock.number_of_shares}}</td>
+        <td>$ {{stock.purchase_price}}</td>
+        <td>{{stock.prchase_date.strftime('%Y-%m-%d')}}</td>
+      </tr>
+    {% endfor %}
+  </table>
+</div>
+{% endblock content %}
